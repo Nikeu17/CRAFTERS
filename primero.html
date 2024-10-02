@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comunidad de Creadores</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        #projectList {
+            margin-top: 20px;
+        }
+        .project {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .likeButton, .commentButton {
+            margin-right: 10px;
+            padding: 5px 10px;
+            background-color: #A3C9E0;
+            border: none;
+            color: white;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .likeButton:hover, .commentButton:hover {
+            background-color: #82B3D8;
+        }
+        .commentInput {
+            padding: 5px;
+            margin-right: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sube tu Proyecto</h1>
+    <input type="file" id="fileInput" accept=".jpg,.png,.pdf,.zip" required>
+    <button id="uploadButton">Subir</button>
+
+    <h2>Tus proyectos</h2>
+    <div id="projectList"></div>
+
+    <script>
+        document.getElementById('uploadButton').addEventListener('click', function() {
+            const fileInput = document.getElementById('fileInput');
+            const projectList = document.getElementById('projectList');
+
+            if (fileInput.files.length > 0) {
+                const fileName = fileInput.files[0].name;
+                const projectItem = document.createElement('div');
+                projectItem.classList.add('project');
+                projectItem.innerHTML = `
+                    <span>${fileName}</span>
+                    <button class="likeButton">Like</button>
+                    <input type="text" class="commentInput" placeholder="Comentario">
+                    <button class="commentButton">Comentar</button>
+                    <div class="commentsList"></div>
+                `;
+                projectList.appendChild(projectItem);
+
+                // Like
+                projectItem.querySelector('.likeButton').addEventListener('click', function() {
+                    alert('¡Te gusta el proyecto!');
+                });
+
+                // Comentarios
+                projectItem.querySelector('.commentButton').addEventListener('click', function() {
+                    const commentInput = projectItem.querySelector('.commentInput');
+                    const commentText = commentInput.value.trim();
+                    if (commentText) {
+                        const commentsList = projectItem.querySelector('.commentsList');
+                        const commentItem = document.createElement('div');
+                        commentItem.textContent = commentText;
+                        commentsList.appendChild(commentItem);
+                        commentInput.value = ''; // Limpiar el input
+                    } else {
+                        alert('Por favor, escribe un comentario.');
+                    }
+                });
+
+                // Limpiar el input después de subir
+                fileInput.value = '';
+            } else {
+                alert('Por favor, selecciona un archivo para subir.');
+            }
+        });
+    </script>
+
+<button class="volver" style="width: 153px; height: 28px; left: 1169px; top: 26px; position: absolute; background-color: #d2d2d200; color: rgb(15, 14, 14); font-size: 32px; font-family: Chenla; font-weight: 400; line-height: 50px; border: none; cursor: pointer; text-align: center;" onclick="window.location.href='index.html'">
+    Volver
+</button>
+
+
+
+</body>
+</html>
+
+
